@@ -3,8 +3,9 @@ from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, PermissionsMixin
 )
 from django.core.validators import RegexValidator
-
-USERNAME_INVALID = 'Usersname must be alphanumber and consist of 5 characters or more'
+from django.shortcuts import reverse
+USERNAME_INVALID =\
+    'Usersname must be alphanumber and consist of 5 characters or more'
 EMAIL_REQUIRED = 'Users must have an email address'
 
 
@@ -71,7 +72,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         """
         User unique URL
         """
-        return reverse('users:profile', lwargs={'username': self.username})
+        return reverse('home')
 
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"

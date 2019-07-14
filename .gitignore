@@ -1,0 +1,6 @@
+# Environment
+.venv
+
+# static files
+local_static/
+
