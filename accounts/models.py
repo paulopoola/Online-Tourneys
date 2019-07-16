@@ -35,7 +35,7 @@ class UserManager(BaseUserManager):
         """
         Creates non-superuser args are passed to the main _create function
         """
-        is_staff, is_superuser, is_active = False, False, True
+        is_staff, is_superuser, is_active = False, False, False
         args = (username, email, password, is_staff, is_active, is_superuser)
         return self._create_user(*args, **extra_fields)
 

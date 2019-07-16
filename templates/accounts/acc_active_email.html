@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+    <div>
+      <h2>Hello, {{ user.username }}</h2>
+      <p>Please Click on the
+      <a href="http://{{ domain }}{% url 'activate' uidb64=uid token=token%}">link</a>
+        to confirm your registration</p>
+
+    </div>
+{% endblock content %}

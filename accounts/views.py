@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from django.contrib import messages
+from django.urls import reverse_lazy
+from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import CreateView, TemplateView
 from django.contrib.auth.decorators import login_required
 from .forms import UserCreationForm, UserUpdateForm
@@ -10,25 +10,9 @@ class HomePageView(TemplateView):
     template_name = 'index.html'
 
 
-class RegisterView(CreateView):
+class RegisterView(SuccessMessageMixin, CreateView):
     model = User
     template_name = 'accounts/register.html'
     form_class = UserCreationForm
-
-#     def form_valid(self, request, *args, **kwargs):
-#         username = form.cleaned_data.get('username')
-#         messages.success(request,
-#            f'{username}, Your Account Has Been Created! You can login now!')
-
-
-def register(request):
-    if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('home')  # change this route to login later
-    else:
-        form = UserRegisterForm()
-    return render(request=request,
-                  template_name="accounts/register.html",
-                  context={"form": form})
+    success_url = reverse_lazy('home')
+    success_message =' Your Account Has Been Created!, Activate your account now!'
