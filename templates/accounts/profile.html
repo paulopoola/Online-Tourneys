@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div>
+    <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+    <h2>{{ user.username }}</h2>
+    <p">{{ user.email }}</p>
+    </div>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+            <legend>Profile Info</legend>
+            {{ u_form.as_p }}
+            {{ p_form.as_p }}
+        <div>
+            <button class="btn btn-outline-info" type="submit">Update</button>
+        </div>
+    </form>
+<small class="text-muted ml-2">
+    Wanna Change Your <a href="{% url 'password_reset' %}">  Password ?</a>
+</small>
+{% endblock content %}

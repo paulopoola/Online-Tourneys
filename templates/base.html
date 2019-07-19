@@ -1,6 +1,5 @@
+{% load static %}
 <!DOCTYPE html>
-{% load staticfiles %}
-
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -13,14 +12,10 @@
   <body>
 	  <div style="margin-bottom: 100px;" ></div>
     {% if messages %}
-    <div class="col-lg-3 color03">
-        <ul class="messages">
-            {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    </div>
-    {% endif %}
+      {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    {% endif%}
       {% block content %}{% endblock %}
       <!-- CUSTOM J.S SCRIPT -->
 	  <script src="{% static 'js/base.js' %}" ></script>

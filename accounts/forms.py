@@ -1,7 +1,7 @@
 from django.contrib.auth import password_validation
 from django import forms
 from django.contrib.auth.forms import UserCreationForm as BaseUserCreationForm
-from .models import User
+from .models import User, Profile
 
 
 class UserCreationForm(BaseUserCreationForm):
@@ -54,5 +54,12 @@ class UserCreationForm(BaseUserCreationForm):
 
 
 class UserUpdateForm(forms.ModelForm):
-    model = User
-    fields = ['username', 'email', 'first_name', 'last_name']
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email']
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image',]

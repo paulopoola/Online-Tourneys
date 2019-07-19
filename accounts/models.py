@@ -4,6 +4,9 @@ from django.contrib.auth.models import (
 )
 from django.core.validators import RegexValidator
 from django.shortcuts import reverse
+from PIL import Image
+
+
 USERNAME_INVALID =\
     'Usersname must be alphanumber and consist of 5 characters or more'
 EMAIL_REQUIRED = 'Users must have an email address'
@@ -76,3 +79,22 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete = models.CASCADE)
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    bio = models.CharField(max_length=250, default=' ', blank=True)
+
+    def __str__(self):
+        return '{} Profile'.format(self.user.username)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        img = Image.open(self.image.path)
+
+        if img.height > 250 or img.width > 250:
+            output_size = (250, 250)
+            img.thumbnail(output_size)
+            img.save(self.image.path)
