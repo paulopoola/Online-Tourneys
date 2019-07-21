@@ -1,9 +1,9 @@
 from django.http import HttpResponse
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, CreateView
 from django.contrib.auth.decorators import login_required
 from .forms import UserCreationForm, UserUpdateForm, ProfileUpdateForm
 from django.shortcuts import redirect, render
-from .models import User,Profile
+from .models import User, Profile
 from django.contrib.auth import login
 from django.contrib import messages
 from django.core.mail import EmailMessage
@@ -17,6 +17,10 @@ class HomePageView(TemplateView):
     template_name = 'index.html'
 
 
+class Register(CreateView):
+    model = User
+    form_class = UserCreationForm
+    pass
 
 def Register(request):
     if request.method == 'POST':
@@ -38,8 +42,8 @@ def Register(request):
                         mail_subject, message, to=[to_email]
             )
             email.send()
-            messages.success(request, 'Your Account Has Been Created! You can\
-             login after validation!')
+            messages.success(request, 'Your Account Has Been Created! You can \
+            login after validation!')
             return redirect('login')
     else:
         form = UserCreationForm()

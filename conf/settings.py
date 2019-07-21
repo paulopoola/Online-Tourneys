@@ -54,6 +54,7 @@ ROOT_URLCONF = 'conf.urls'
 
 AUTH_USER_MODEL = 'accounts.user'
 
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

@@ -7,8 +7,9 @@ from django.shortcuts import reverse
 from PIL import Image
 
 
+
 USERNAME_INVALID =\
-    'Usersname must be alphanumber and consist of 5 characters or more'
+    'Username must be alphanumber and consist of 5 characters or more'
 EMAIL_REQUIRED = 'Users must have an email address'
 
 
@@ -87,7 +88,7 @@ class Profile(models.Model):
     bio = models.CharField(max_length=250, default=' ', blank=True)
 
     def __str__(self):
-        return '{} Profile'.format(self.user.username)
+        return "{}'s Profile".format(self.user.username)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
